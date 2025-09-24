@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Cartoon Casino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.08);
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.12);
+            top: 40%;
+            left: 80%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Fixed Navigation */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 15px 0;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: nowrap;
+            margin: 0;
+        }
+
+        .nav-links li {
+            flex-shrink: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            white-space: nowrap;
+            display: block;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: left 0.3s ease;
+            z-index: -1;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover::before {
+            left: 0;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .mobile-menu:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Back to Home Button */
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button i {
+            margin-right: 8px;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .page-title h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+            animation: bounceIn 1s ease-out;
+        }
+
+        .page-title p {
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Terms Content */
+        .terms-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .terms-section {
+            margin-bottom: 40px;
+        }
+
+        .terms-section h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .terms-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 3px;
+        }
+
+        .terms-section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .terms-section ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .terms-section li {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight-box h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #4ecdc4;
+        }
+
+        .contact-info h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .contact-info a {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-info a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #4ecdc4;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #4ecdc4;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container { padding: 0 20px; }
+            .page-title h1 { font-size: 3rem; }
+            .page-title p { font-size: 1.1rem; }
+            .terms-content { padding: 40px; }
+            .terms-section h2 { font-size: 1.9rem; }
+            .nav-links { gap: 25px; }
+            .nav-links a { font-size: 1rem; padding: 8px 18px; }
+            .highlight-box { padding: 30px; }
+            .highlight-box h3 { font-size: 1.5rem; }
+            .highlight-box p { font-size: 1rem; }
+            .contact-info { padding: 25px; }
+            .contact-info h3 { font-size: 1.3rem; }
+            .contact-info p { font-size: 0.95rem; }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 0.95rem; padding: 8px 16px; }
+            .page-title h1 { font-size: 2.5rem; }
+            .page-title p { font-size: 1rem; }
+            .terms-section h2 { font-size: 1.8rem; }
+            .terms-content { padding: 35px; }
+            .terms-section p { font-size: 0.95rem; }
+            .terms-section li { font-size: 0.95rem; }
+            .highlight-box { padding: 25px; }
+            .highlight-box h3 { font-size: 1.4rem; }
+            .highlight-box p { font-size: 0.95rem; }
+            .contact-info { padding: 22px; }
+            .contact-info h3 { font-size: 1.25rem; }
+            .contact-info p { font-size: 0.9rem; }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                gap: 15px;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { font-size: 1rem; padding: 12px 20px; }
+            .page-title h1 { font-size: 2rem; }
+            .page-title p { font-size: 0.95rem; }
+            .terms-content { padding: 30px 20px; }
+            .terms-section h2 { font-size: 1.6rem; }
+            .terms-section p { font-size: 0.9rem; }
+            .terms-section li { font-size: 0.9rem; }
+            .highlight-box { padding: 20px; flex-direction: column; text-align: center; gap: 15px; }
+            .highlight-box h3 { font-size: 1.3rem; }
+            .highlight-box p { font-size: 0.9rem; }
+            .contact-info { padding: 20px; }
+            .contact-info h3 { font-size: 1.2rem; }
+            .contact-info p { font-size: 0.9rem; }
+            .footer-content { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+            .social-links { gap: 15px; }
+            .social-links a { width: 45px; height: 45px; line-height: 45px; font-size: 1.1rem; }
+        }
+
+        @media (max-width: 576px) {
+            .container { padding: 0 15px; }
+            .page-title h1 { font-size: 1.8rem; }
+            .page-title p { font-size: 0.9rem; }
+            .terms-content { padding: 20px 15px; }
+            .terms-section h2 { font-size: 1.4rem; }
+            .terms-section p { font-size: 0.85rem; }
+            .terms-section li { font-size: 0.85rem; }
+            .highlight-box { padding: 18px; }
+            .highlight-box h3 { font-size: 1.2rem; }
+            .highlight-box p { font-size: 0.9rem; }
+            .contact-info { padding: 18px; }
+            .contact-info h3 { font-size: 1.1rem; }
+            .contact-info p { font-size: 0.85rem; }
+            .footer-content { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+            .social-links { gap: 15px; }
+            .social-links a { width: 45px; height: 45px; line-height: 45px; font-size: 1.1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 { font-size: 1.6rem; }
+            .page-title p { font-size: 0.85rem; }
+            .logo { font-size: 2rem; }
+            .terms-section h2 { font-size: 1.2rem; }
+            .terms-section p { font-size: 0.8rem; }
+            .terms-section li { font-size: 0.8rem; }
+            .highlight-box { padding: 15px; }
+            .highlight-box h3 { font-size: 1.1rem; }
+            .highlight-box p { font-size: 0.85rem; }
+            .contact-info { padding: 15px; }
+            .contact-info h3 { font-size: 1rem; }
+            .contact-info p { font-size: 0.8rem; }
+            .nav-links a { font-size: 0.9rem; padding: 10px 15px; }
+            .footer-content { grid-template-columns: 1fr; gap: 25px; }
+            .footer-section h3 { font-size: 1.3rem; }
+            .footer-section p { font-size: 0.9rem; }
+            .social-links a { width: 40px; height: 40px; line-height: 40px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">🎰 Cartoon Casino</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="games.html">Games</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>Back to Home
+            </a>
+
+            <div class="page-title">
+                <h1>📋 Terms of Service 📋</h1>
+                <p>Please read these terms carefully before using our demo gaming platform.</p>
+            </div>
+
+            <div class="terms-content">
+                <div class="highlight-box">
+                    <h3>🎯 Important Notice</h3>
+                    <p>Cartoon Casino is a DEMO gaming platform. No real money is involved, and no real money can be won or lost. This is purely for entertainment and educational purposes.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>By accessing and using Cartoon Casino ("the Platform"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+                    <p>These Terms of Service ("Terms") govern your use of our demo gaming platform operated by Cartoon Casino ("us", "we", or "our").</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>2. Description of Service</h2>
+                    <p>Cartoon Casino provides a demo gaming platform featuring cartoon-themed slot games and casino-style entertainment. Our service includes:</p>
+                    <ul>
+                        <li>Demo slot games with cartoon themes</li>
+                        <li>Educational content about responsible gaming</li>
+                        <li>Entertainment-focused gaming experiences</li>
+                        <li>No real money transactions or gambling</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>3. Demo Nature of Platform</h2>
+                    <p>It is crucial to understand that Cartoon Casino is a demonstration platform:</p>
+                    <ul>
+                        <li>No real money is accepted or processed</li>
+                        <li>No real money prizes or winnings are offered</li>
+                        <li>All games are for entertainment purposes only</li>
+                        <li>No gambling or betting activities occur</li>
+                        <li>This platform promotes responsible gaming education</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>4. User Responsibilities</h2>
+                    <p>As a user of our platform, you agree to:</p>
+                    <ul>
+                        <li>Use the platform only for entertainment and educational purposes</li>
+                        <li>Not attempt to modify, hack, or exploit the platform</li>
+                        <li>Respect other users and maintain appropriate conduct</li>
+                        <li>Not use the platform for any illegal activities</li>
+                        <li>Understand that this is a demo platform with no real money involved</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>5. Age Restrictions</h2>
+                    <p>Our platform is designed to be family-friendly and educational:</p>
+                    <ul>
+                        <li>Suitable for all ages with parental guidance</li>
+                        <li>Children under 13 should use with adult supervision</li>
+                        <li>Parents are encouraged to discuss responsible gaming with their children</li>
+                        <li>No age verification is required as no real money is involved</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>6. Intellectual Property</h2>
+                    <p>All content on Cartoon Casino, including but not limited to:</p>
+                    <ul>
+                        <li>Graphics, animations, and visual elements</li>
+                        <li>Game designs and mechanics</li>
+                        <li>Text content and educational materials</li>
+                        <li>Website design and layout</li>
+                    </ul>
+                    <p>is protected by copyright and other intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>7. Privacy and Data Collection</h2>
+                    <p>We respect your privacy and are committed to protecting your personal information:</p>
+                    <ul>
+                        <li>We do not collect personal information unless voluntarily provided</li>
+                        <li>No registration is required to use our demo games</li>
+                        <li>We may collect anonymous usage statistics for platform improvement</li>
+                        <li>Cookies may be used to enhance your experience</li>
+                    </ul>
+                    <p>For detailed information, please review our Privacy Policy.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>8. Limitation of Liability</h2>
+                    <p>Cartoon Casino shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the platform.</p>
+                    <p>Since this is a demo platform with no real money involved, there are no financial risks or losses possible.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>9. Platform Availability</h2>
+                    <p>We strive to maintain platform availability but cannot guarantee uninterrupted service:</p>
+                    <ul>
+                        <li>We may perform maintenance that temporarily affects availability</li>
+                        <li>Technical issues may cause temporary downtime</li>
+                        <li>We reserve the right to modify or discontinue the platform</li>
+                        <li>We will provide reasonable notice of significant changes</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>10. Responsible Gaming</h2>
+                    <p>Our platform promotes responsible gaming practices:</p>
+                    <ul>
+                        <li>Educational content about gambling risks</li>
+                        <li>Information about setting gaming limits</li>
+                        <li>Resources for those who may need help</li>
+                        <li>Emphasis on entertainment over financial gain</li>
+                    </ul>
+                    <p>If you or someone you know has a gambling problem, please seek help from appropriate resources.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>11. Modifications to Terms</h2>
+                    <p>We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting on the platform. Your continued use of the platform after changes constitutes acceptance of the new Terms.</p>
+                    <p>We encourage you to review these Terms periodically for any updates.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>12. Termination</h2>
+                    <p>We may terminate or suspend your access to the platform immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+                    <p>Upon termination, your right to use the platform will cease immediately.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>13. Governing Law</h2>
+                    <p>These Terms shall be interpreted and governed by the laws of the jurisdiction in which Cartoon Casino operates, without regard to its conflict of law provisions.</p>
+                    <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h3>📞 Contact Information</h3>
+                    <p>If you have any questions about these Terms of Service, please contact us:</p>
+                    <p>Email: <a href="mailto:legal@cartooncasino.com">legal@cartooncasino.com</a></p>
+                    <p>General Inquiries: <a href="mailto:info@cartooncasino.com">info@cartooncasino.com</a></p>
+                    <p>Last Updated: December 2024</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🎰 Cartoon Casino</h3>
+                    <p>Your fun and safe demo gaming destination! Experience the excitement of casino games without any real money risk.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="about.html">About Us</a></p>
+                    <p><a href="games.html">Demo Games</a></p>
+                    <p><a href="contact.html">Contact</a></p>
+                    <p><a href="responsible.html">Responsible Gaming</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <p><a href="terms.html">Terms of Service</a></p>
+                    <p><a href="privacy.html">Privacy Policy</a></p>
+                    <p><a href="responsible.html">Responsible Gaming</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📧 info@cartooncasino.com</p>
+                    <p>🌐 www.cartooncasino.com</p>
+                    <p>📱 Available 24/7</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Cartoon Casino. All rights reserved. | Demo Gaming Platform | No Real Money Involved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle with improved animation
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            navLinks.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                const mobileMenu = document.getElementById('mobileMenu');
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navLinks = document.getElementById('navLinks');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const nav = document.querySelector('.nav');
+            
+            if (!nav.contains(e.target)) {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.terms-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Add floating animation to shapes
+        document.querySelectorAll('.shape').forEach((shape, index) => {
+            shape.style.animationDelay = `${index * 2}s`;
+        });
+
+        // Add typing effect to page title
+        const pageTitle = document.querySelector('.page-title h1');
+        const originalText = pageTitle.textContent;
+        pageTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                pageTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        
+        setTimeout(typeWriter, 500);
+
+        // Add hover effects to highlight box
+        document.querySelector('.highlight-box').addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        
+        document.querySelector('.highlight-box').addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+
+        // Add click effect to contact links
+        document.querySelectorAll('.contact-info a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(78, 205, 196, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.marginLeft = '-10px';
+                ripple.style.marginTop = '-10px';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 300);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.style.position = 'fixed';
+        progressBar.style.top = '0';
+        progressBar.style.left = '0';
+        progressBar.style.width = '0%';
+        progressBar.style.height = '3px';
+        progressBar.style.background = 'linear-gradient(45deg, #ff6b6b, #4ecdc4)';
+        progressBar.style.zIndex = '1000';
+        progressBar.style.transition = 'width 0.3s ease';
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+
+        // Add navbar scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.15)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html>
